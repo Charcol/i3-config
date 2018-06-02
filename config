@@ -90,7 +90,8 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+# (default is $mod+d but that belongs to dmenu)
+bindsym $mod+shift+a focus child
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -116,6 +117,12 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+# Focus next/previous workspace (won't work in $mod+s mode)
+bindsym Mod1+Tab focus right
+bindsym Mod1+Shift+Tab focus left
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -129,8 +136,8 @@ mode "resize" {
 
         # Pressing left will shrink the window’s width.
         # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
+        # Pressing up will shrink the window’s height. # default here is backwards!
+        # Pressing down will grow the window’s height. # default here is backwards!
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
@@ -138,8 +145,8 @@ mode "resize" {
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt # backwards!
+        bindsym Up resize shrink height 10 px or 10 ppt # backwards!
         bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape
@@ -148,6 +155,21 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+# Immediately resize windows in i3 using keyboard only (without $mod+r)
+# http://unix.stackexchange.com/q/255344/150597
+
+# Resizing by 1
+bindsym $mod+Ctrl+Shift+Right resize grow width 1 px or 1 ppt
+bindsym $mod+Ctrl+Shift+Up resize grow height 1 px or 1 ppt
+bindsym $mod+Ctrl+Shift+Down resize shrink height 1 px or 1 ppt
+bindsym $mod+Ctrl+Shift+Left resize shrink width 1 px or 1 ppt
+
+# Resizing by 10
+bindsym $mod+Ctrl+Right resize grow width 10 px or 10 ppt
+bindsym $mod+Ctrl+Up resize grow height 10 px or 10 ppt # not backwards... Up is grow, down shrink.
+bindsym $mod+Ctrl+Down resize shrink height 10 px or 10 ppt # compare with $mod+r mode
+bindsym $mod+Ctrl+Left resize shrink width 10 px or 10 ppt
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
